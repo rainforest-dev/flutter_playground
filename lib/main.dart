@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/screens/home.dart';
+import 'package:flutter_playground/screens/scan.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(routes: <RouteBase>[
+  GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) =>
+          const HomeScreen()),
+  GoRoute(
+      name: 'scan',
+      path: '/scan',
+      builder: (BuildContext context, GoRouterState state) =>
+          const ScanScreen()),
+]);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,7 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Bookshelf',
       theme: ThemeData(
         // This is the theme of your application.
@@ -32,7 +46,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      routerConfig: _router,
     );
   }
 }
